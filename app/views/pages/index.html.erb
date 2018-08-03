@@ -1,0 +1,27 @@
+<h1>Usuarios</h1>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Rol actual</th>
+      <th>Nuevo Rol</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.role %></td>
+        <%= form_tag(dashboard_path(id: user.id)) do %>
+        <td><%= select_tag('role', options_for_select(User.roles), :onchange => "this.form.submit();") %> </td>
+        <% end %>
+        <td><%= link_to 'Eliminar', user_path(user) , method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Usuario?' }, class: 'btn btn-sm btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>    
+
+<br>
